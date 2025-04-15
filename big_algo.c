@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   big_algo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marieduneau <marieduneau@student.42.fr>    +#+  +:+       +#+        */
+/*   By: maduneau <maduneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:18 by marieduneau       #+#    #+#             */
-/*   Updated: 2025/03/21 15:34:38 by marieduneau      ###   ########.fr       */
+/*   Updated: 2025/03/25 15:11:14 by maduneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int find_max_int(t_stack *stack_a)
             max = current->value;
         current = current->next;
     }
+    printf("\nmax: %d \n\n", max);
     return (max);
 }
 
@@ -43,6 +44,9 @@ int compute_max_bits(t_stack *stack_a)
     bits = 0;
     while ((max_int >> bits) != 0)
         bits++;
+    
+    printf("\nbits: %d \n\n", bits);
+
     return (bits);
 }
 
@@ -51,26 +55,43 @@ void    radix_sort(t_stack *stack_a, t_stack *stack_b)
     int max_bits;
     int i;
     int bit;
-    int current_value;
+    // t_node *current;
+    int max;
     
+    max = find_max_int(stack_a);
     max_bits = compute_max_bits(stack_a);
-    if (max_bits == 0)
-        return ;
     bit = 0;
+    
+    printf("\nmax bits: %d \n\n", max_bits);
+    printf("\n BEFORE Stack a: ");
+    print_stack(stack_a);
+    printf("\n Stack b: ");
+    print_stack(stack_b);
+    
+    // -----------------------current = stack_a->top;
     while (bit < max_bits)
     {
         i = 0;
-        while (i < stack_a->size)
+        while (i <= max)
         {
-            current_value = stack_a->top->value;
-            if ((current_value >> bit) & 1)
+            printf("\n----------------");
+            printf("\n\n Stack a: ");
+            print_stack(stack_a);
+            printf("\n Stack b: ");
+            print_stack(stack_b);
+            
+            printf("\n Stack_a->size :%d\n", stack_a->size);
+            printf("\ni : %d\n", i);
+            printf("bit : %d\n\n", bit);
+            
+            if ((current >> bit) & 1)
                 ra(stack_a);
             else
                 pb(stack_a, stack_b);
             i++;
-        }   
+        } 
         while (stack_b->size > 0)
-        pa(stack_a, stack_b);
+            pa(stack_a, stack_b);  
         bit++;
     }
 }
