@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   big_algo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maduneau <maduneau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marieduneau <marieduneau@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:15:18 by marieduneau       #+#    #+#             */
-/*   Updated: 2025/03/25 15:11:14 by maduneau         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:44:45 by marieduneau      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void    radix_sort(t_stack *stack_a, t_stack *stack_b)
     int max_bits;
     int i;
     int bit;
-    // t_node *current;
+    t_node *current;
     int max;
     
     max = find_max_int(stack_a);
@@ -68,7 +68,7 @@ void    radix_sort(t_stack *stack_a, t_stack *stack_b)
     printf("\n Stack b: ");
     print_stack(stack_b);
     
-    // -----------------------current = stack_a->top;
+    current = stack_a->top;
     while (bit < max_bits)
     {
         i = 0;
@@ -84,7 +84,7 @@ void    radix_sort(t_stack *stack_a, t_stack *stack_b)
             printf("\ni : %d\n", i);
             printf("bit : %d\n\n", bit);
             
-            if ((current >> bit) & 1)
+            if ((current->value >> bit) & 1)
                 ra(stack_a);
             else
                 pb(stack_a, stack_b);
